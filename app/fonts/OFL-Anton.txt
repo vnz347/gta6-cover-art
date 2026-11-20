@@ -1,3 +1,5 @@
+Font license: this file covers anton-latin.woff2, the Anton display font used by Heatwave Cover Studio.
+
 Copyright 2020 The Anton Project Authors (https://github.com/googlefonts/AntonFont.git)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.

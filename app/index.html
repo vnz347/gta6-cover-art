@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Heatwave Cover Studio — GTA-style cover maker</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffd319'/%3E%3Cstop offset='1' stop-color='%23ff2975'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, sans-serif' font-size='28' font-weight='900' text-anchor='middle' fill='%2314091a'%3EHW%3C/text%3E%3C/svg%3E">
+<title>Heatwave Cover Studio — make your own GTA-style cover</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff2975'/%3E%3Cstop offset='1' stop-color='%23ffd319'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='45' font-family='Arial Black, sans-serif' font-size='30' font-weight='900' text-anchor='middle' fill='%2314091a'%3EH%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="brand">
-    <span class="brand-mark" aria-hidden="true">HW</span>
+<header class="masthead">
+  <div class="logo">
+    <span class="logo-mark" aria-hidden="true">H</span>
     <div>
       <h1>Heatwave Cover Studio</h1>
-      <p>Turn your photos into a Vice City sunset cover.</p>
+      <p>Your photos, graded like a Vice City sunset, finished like a poster.</p>
     </div>
   </div>
-  <div class="top-actions">
+  <div class="actions">
     <button id="undo" type="button" title="Undo (Ctrl+Z)">Undo</button>
     <button id="redo" type="button" title="Redo (Ctrl+Shift+Z)">Redo</button>
     <button id="export" type="button" class="primary">Export PNG</button>
@@ -24,31 +24,31 @@
   </div>
 </header>
 
-<main class="app">
-  <section class="controls" aria-label="Cover controls">
-    <section class="group">
-      <h2>1 · Photos</h2>
-      <label class="file-label">Add your photos
+<main class="workspace">
+  <aside class="sidebar" aria-label="Cover controls">
+    <section class="card">
+      <h2>Photos</h2>
+      <label class="file-drop">Add your photos
         <input id="photo" type="file" accept="image/*" multiple>
       </label>
       <button id="samples" type="button">Load sample photos</button>
-      <div id="photo-strip" class="photo-strip" aria-label="Your photos"></div>
-      <p class="hint">Click a panel on the cover, then a photo here, to place it. Drag a panel to reframe, scroll to zoom. Each photo is centred on the face when the browser can find one.</p>
+      <div id="photo-strip" class="strip" aria-label="Your photos"></div>
+      <p class="hint">Click a panel on the cover, then a photo here, to place it. Drag a panel to reframe it, scroll to zoom. Each photo is centred on the face when the browser can find one.</p>
     </section>
 
-    <section class="group">
-      <h2>2 · Layout</h2>
+    <section class="card">
+      <h2>Layout</h2>
       <div id="layout-picker" class="picker" role="group" aria-label="Layout"></div>
     </section>
 
-    <section class="group">
-      <h2>3 · Grade</h2>
+    <section class="card">
+      <h2>Grade</h2>
       <div id="grade-picker" class="picker" role="group" aria-label="Colour grade"></div>
     </section>
 
-    <section class="group">
-      <h2>4 · Caption</h2>
-      <label>Caption
+    <section class="card">
+      <h2>Caption</h2>
+      <label>Title
         <input id="caption" type="text" maxlength="40" value="Neon Nights">
       </label>
       <label>Subtitle
@@ -72,7 +72,7 @@
         </label>
       </div>
       <div class="row">
-        <label>Caption size
+        <label>Title size
           <input id="caption-size" type="range" min="60" max="140" value="100">
         </label>
         <label>Heat meter
@@ -86,9 +86,9 @@
       </div>
     </section>
 
-    <section class="group">
-      <h2>5 · Selected panel</h2>
-      <p id="panel-label" class="panel-label">Panel 1 of 4</p>
+    <section class="card">
+      <h2>Selected panel</h2>
+      <p id="panel-label" class="panel-label">Panel 1 of 5</p>
       <label>Zoom
         <input id="zoom" type="range" min="100" max="400" value="100">
       </label>
@@ -98,19 +98,19 @@
       </div>
     </section>
 
-    <section class="group">
-      <h2>6 · Poster extras</h2>
+    <section class="card">
+      <h2>Poster extras</h2>
       <label>Tagline
-        <input id="tagline" type="text" maxlength="60" value="One city · One summer · Every light on">
+        <input id="tagline" type="text" maxlength="60" value="One summer · Every light on · No looking back">
       </label>
       <label>Review quote
-        <input id="quote" type="text" maxlength="80" value="“The coast never looked this good.” — Heatwave Mag">
+        <input id="quote" type="text" maxlength="80" value="“The whole coast in one frame.” — Sunset Weekly">
       </label>
       <label>Billing block
-        <input id="billing" type="text" maxlength="120" value="A Heatwave production · Starring your photos · Shot on location · Graded in the golden hour">
+        <input id="billing" type="text" maxlength="120" value="Heatwave Pictures presents · Your photos in the starring roles · Shot on location · Finished in the golden hour">
       </label>
       <label>Panel roles (comma separated)
-        <input id="roles" type="text" maxlength="160" value="The Wheelman, The Lookout, The Hustler, The Ghost, The Star, The Fixer, The Runner, The Queen, The Rookie">
+        <input id="roles" type="text" maxlength="160" value="The Driver, The Insider, The Rider, The Boss, The Courier, The Star, The Lookout, The Queen, The Rookie">
       </label>
       <div class="row">
         <label class="check"><input id="role-tags" type="checkbox" checked> Role tags</label>
@@ -123,13 +123,13 @@
       <label class="check"><input id="badges" type="checkbox" checked> Corner badges (Vol. 1 · Coming soon)</label>
     </section>
 
-    <section class="group">
-      <h2>7 · Size &amp; finish</h2>
+    <section class="card">
+      <h2>Size &amp; finish</h2>
       <div id="size-picker" class="picker" role="group" aria-label="Export size"></div>
       <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
       <label class="check"><input id="vignette" type="checkbox" checked> Vignette</label>
     </section>
-  </section>
+  </aside>
 
   <section class="stage" aria-label="Cover preview">
     <canvas id="cover" width="960" height="960" aria-label="The cover"></canvas>

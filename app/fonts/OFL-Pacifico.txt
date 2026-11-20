@@ -1,3 +1,5 @@
+Font license: this file covers pacifico-latin.woff2, the Pacifico script font used by Heatwave Cover Studio.
+
 Copyright 2018 The Pacifico Project Authors (https://github.com/googlefonts/Pacifico)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
