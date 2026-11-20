@@ -3,20 +3,138 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Heatwave Cover Studio — GTA-style cover maker</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffd319'/%3E%3Cstop offset='1' stop-color='%23ff2975'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, sans-serif' font-size='28' font-weight='900' text-anchor='middle' fill='%2314091a'%3EHW%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">HW</span>
+    <div>
+      <h1>Heatwave Cover Studio</h1>
+      <p>Turn your photos into a Vice City sunset cover.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button id="undo" type="button" title="Undo (Ctrl+Z)">Undo</button>
+    <button id="redo" type="button" title="Redo (Ctrl+Shift+Z)">Redo</button>
+    <button id="export" type="button" class="primary">Export PNG</button>
+    <button id="export-all" type="button">Export all sizes</button>
+  </div>
+</header>
+
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="controls" aria-label="Cover controls">
+    <section class="group">
+      <h2>1 · Photos</h2>
+      <label class="file-label">Add your photos
+        <input id="photo" type="file" accept="image/*" multiple>
+      </label>
+      <button id="samples" type="button">Load sample photos</button>
+      <div id="photo-strip" class="photo-strip" aria-label="Your photos"></div>
+      <p class="hint">Click a panel on the cover, then a photo here, to place it. Drag a panel to reframe, scroll to zoom. Each photo is centred on the face when the browser can find one.</p>
+    </section>
+
+    <section class="group">
+      <h2>2 · Layout</h2>
+      <div id="layout-picker" class="picker" role="group" aria-label="Layout"></div>
+    </section>
+
+    <section class="group">
+      <h2>3 · Grade</h2>
+      <div id="grade-picker" class="picker" role="group" aria-label="Colour grade"></div>
+    </section>
+
+    <section class="group">
+      <h2>4 · Caption</h2>
+      <label>Caption
+        <input id="caption" type="text" maxlength="40" value="Neon Nights">
+      </label>
+      <label>Subtitle
+        <input id="subtitle" type="text" maxlength="40" value="a vice city story">
+      </label>
+      <div class="row">
+        <label>Lettering
+          <select id="caption-style">
+            <option value="chrome" selected>Retro chrome</option>
+            <option value="gradient">Sunset gradient</option>
+            <option value="white">Clean white</option>
+            <option value="outline">Outline</option>
+          </select>
+        </label>
+        <label>Position
+          <select id="caption-pos">
+            <option value="auto">Auto</option>
+            <option value="top">Top</option>
+            <option value="bottom">Bottom</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <label>Caption size
+          <input id="caption-size" type="range" min="60" max="140" value="100">
+        </label>
+        <label>Heat meter
+          <select id="stars">
+            <option value="0">Off</option>
+            <option value="3">★★★</option>
+            <option value="4">★★★★</option>
+            <option value="5" selected>★★★★★</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>5 · Selected panel</h2>
+      <p id="panel-label" class="panel-label">Panel 1 of 4</p>
+      <label>Zoom
+        <input id="zoom" type="range" min="100" max="400" value="100">
+      </label>
+      <div class="row">
+        <button id="one-photo" type="button">One photo, all panels</button>
+        <button id="reset-crop" type="button">Reset crop</button>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>6 · Poster extras</h2>
+      <label>Tagline
+        <input id="tagline" type="text" maxlength="60" value="One city · One summer · Every light on">
+      </label>
+      <label>Review quote
+        <input id="quote" type="text" maxlength="80" value="“The coast never looked this good.” — Heatwave Mag">
+      </label>
+      <label>Billing block
+        <input id="billing" type="text" maxlength="120" value="A Heatwave production · Starring your photos · Shot on location · Graded in the golden hour">
+      </label>
+      <label>Panel roles (comma separated)
+        <input id="roles" type="text" maxlength="160" value="The Wheelman, The Lookout, The Hustler, The Ghost, The Star, The Fixer, The Runner, The Queen, The Rookie">
+      </label>
+      <div class="row">
+        <label class="check"><input id="role-tags" type="checkbox" checked> Role tags</label>
+        <label class="check"><input id="seal" type="checkbox" checked> Seal</label>
+      </div>
+      <div class="row">
+        <label class="check"><input id="barcode" type="checkbox" checked> Barcode</label>
+        <label class="check"><input id="billing-on" type="checkbox" checked> Billing block</label>
+      </div>
+      <label class="check"><input id="badges" type="checkbox" checked> Corner badges (Vol. 1 · Coming soon)</label>
+    </section>
+
+    <section class="group">
+      <h2>7 · Size &amp; finish</h2>
+      <div id="size-picker" class="picker" role="group" aria-label="Export size"></div>
+      <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="vignette" type="checkbox" checked> Vignette</label>
+    </section>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <section class="stage" aria-label="Cover preview">
+    <canvas id="cover" width="960" height="960" aria-label="The cover"></canvas>
+    <p id="status" role="status">Load the samples or add your own photos to begin.</p>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>
